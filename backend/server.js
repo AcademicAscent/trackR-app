@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import router from "./src/routes/goalRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
+import sessionRoutes from "./src/routes/sessionRoutes.js";
 // import goalRoutes from './routes/goalRoutes.js';
 // import userRoutes from './routes/userRoutes.js';
 // import verifyToken from "./middleware/auth.js";
