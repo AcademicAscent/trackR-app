@@ -1,6 +1,7 @@
-// backend/src/controllers/sessionController.js
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+// import { PrismaClient } from "../generated/prisma/index.js";
+// const prisma = new PrismaClient();
+// Replace the prior prima instantiation ^ and will import the singleton Niko created in backend/src/lib/prisma.js below this line
+import { prisma } from '../lib/prisma.js';
 
 // Get all sessions
 export const getAllSessions = async (req, res) => {

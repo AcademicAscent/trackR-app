@@ -1,6 +1,8 @@
 
-import { PrismaClient } from "../generated/prisma/index.js";
-const prisma = new PrismaClient();
+// import { PrismaClient } from "../generated/prisma/index.js";
+// const prisma = new PrismaClient();
+// Replace the prior prima instantiation ^ and will import the singleton Niko created in backend/src/lib/prisma.js below this line
+import { prisma } from '../lib/prisma.js';
 
 export const getAllGoals = async (req, res) => {
     try {
