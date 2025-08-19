@@ -1,154 +1,221 @@
 import React, { useState, useEffect } from 'react';
-import GoalCard from '../components/GoalCard';
-import StudyTimer from '../components/StudyTimer';
-import ProgressChart from '../components/ProgressChart';
-import AchievementBadgeDisplay from '../components/AchievementBadgeDisplay';
+import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
-  const [goals, setGoals] = useState([]);
-  const [studySessions, setStudySessions] = useState([]);
-  const [achievements, setAchievements] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+  const [checkIns, setCheckIns] = useState(2);
+  const [totalStudyTime, setTotalStudyTime] = useState(8.2);
+  const [lastCheckIn, setLastCheckIn] = useState('2025-08-17');
+  
+  // Timer state
+  const [time, setTime] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
 
-  // Mock data for testing - replace with real API calls later
-  const loadMockData = () => {
-    setIsLoading(true);
-    
-    // Mock goals data
-    const mockGoals = [
-      {
-        _id: '1',
-        title: 'Study JavaScript',
-        description: 'Practice JavaScript fundamentals daily',
-        progress: [
-          { date: '2025-08-10T10:00:00Z', completed: true },
-          { date: '2025-08-09T10:00:00Z', completed: true }
-        ]
-      },
-      {
-        _id: '2',
-        title: 'Read Technical Books',
-        description: 'Read for 30 minutes each day',
-        progress: [
-          { date: '2025-08-09T10:00:00Z', completed: true }
-        ]
-      }
-    ];
-
-    // Mock study sessions for chart
-    const mockSessions = [
-      { date: '2025-08-07', hours: 2.5 },
-      { date: '2025-08-08', hours: 1.8 },
-      { date: '2025-08-09', hours: 3.2 },
-      { date: '2025-08-10', hours: 2.1 },
-      { date: '2025-08-11', hours: 1.5 }
-    ];
-
-    // Mock achievements
-    const mockAchievements = [
-      { 
-        _id: '1', 
-        badgeType: 'first_goal_complete', 
-        name: 'First Goal Completed',
-        earnedDate: '2025-08-10T10:00:00Z' 
-      },
-      { 
-        _id: '2', 
-        badgeType: 'five_hours_study', 
-        name: 'Five Hours of Study',
-        earnedDate: '2025-08-09T14:30:00Z' 
-      }
-    ];
-
-    setGoals(mockGoals);
-    setStudySessions(mockSessions);
-    setAchievements(mockAchievements);
-    setIsLoading(false);
-  };
-
-  // Function to handle the daily check-in
-  const handleDailyCheckin = (goalId) => {
-    setGoals(prevGoals => 
-      prevGoals.map(goal => {
-        if (goal._id === goalId) {
-          const today = new Date().toISOString();
-          return {
-            ...goal,
-            progress: [...goal.progress, { date: today, completed: true }]
-          };
-        }
-        return goal;
-      })
-    );
-  };
-
-  // Function to handle study session end
-  const handleSessionEnd = (sessionData) => {
-    const today = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD format
-    
-    setStudySessions(prevSessions => {
-      const existingSessionIndex = prevSessions.findIndex(session => session.date === today);
-      
-      if (existingSessionIndex >= 0) {
-        // Update existing session
-        const updatedSessions = [...prevSessions];
-        updatedSessions[existingSessionIndex].hours += sessionData.hours;
-        return updatedSessions;
-      } else {
-        // Add new session
-        return [...prevSessions, { date: today, hours: sessionData.hours }];
-      }
-    });
-
-    console.log("Study session saved:", sessionData);
-  };
-
-  // Load data when component mounts
+  // Timer effect
   useEffect(() => {
-    loadMockData();
-  }, []);
+    let interval;
+    if (isRunning) {
+      interval = setInterval(() => {
+        setTime(time => time + 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [isRunning]);
 
-  if (isLoading) {
-    return <div className="text-center p-8">Loading dashboard...</div>;
-  }
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const handleCheckIn = () => {
+    const today = new Date().toISOString().split('T')[0];
+    if (lastCheckIn !== today) {
+      setCheckIns(prev => prev + 1);
+      setTotalStudyTime(prev => prev + 2);
+      setLastCheckIn(today);
+    }
+  };
+
+  const handleStart = () => setIsRunning(!isRunning);
+  const handleReset = () => {
+    setTime(0);
+    setIsRunning(false);
+  };
+
+  // Navigate to goals page when Add Goal is clicked
+  const handleAddGoal = () => {
+    navigate('/goals');
+  };
+
+  const goals = [
+    {
+      id: 1,
+      title: 'Algorithm Practice',
+      description: 'LeetCode daily challenge • 30-day streak goal',
+      priority: 'HIGH PRIORITY',
+      progress: 85
+    },
+    {
+      id: 2,
+      title: 'Database Design Project',
+      description: 'Final presentation next week',
+      priority: 'ON TRACK',
+      progress: 92
+    }
+  ];
+
+  const studyData = [
+    { date: '2025-08-09', hours: 2.5 },
+    { date: '2025-08-10', hours: 3.2 },
+    { date: '2025-08-11', hours: 1.5 },
+    { date: '2025-08-12', hours: 2.8 }
+  ];
+
+  const isCheckedInToday = lastCheckIn === new Date().toISOString().split('T')[0];
+  const maxHours = Math.max(...studyData.map(d => d.hours));
 
   return (
-    <div className="p-8 bg-gray-100 min-h-screen">
-      <h1 className="text-4xl font-bold text-gray-800 mb-6">My Dashboard</h1>
+    <div className="max-w-6xl mx-auto p-8 bg-gray-50 min-h-screen">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-4xl font-bold text-slate-800">Progress Dashboard</h1>
+        <button 
+          onClick={handleAddGoal}
+          className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition-colors duration-200"
+        >
+          + Add Goal
+        </button>
+      </div>
 
-      {/* Achievements Section */}
-      <AchievementBadgeDisplay achievements={achievements} />
+      {/* Check In Button */}
+      <div className="mb-8">
+        <button 
+          onClick={handleCheckIn}
+          disabled={isCheckedInToday}
+          className={`w-full py-4 px-6 rounded-xl font-bold text-lg shadow-lg transition-all ${
+            isCheckedInToday 
+              ? 'bg-green-500 text-white cursor-not-allowed' 
+              : 'bg-red-500 hover:bg-red-600 text-white hover:shadow-xl'
+          }`}
+        >
+          {isCheckedInToday ? '✓ Checked In Today!' : '📚 Check In'}
+        </button>
+      </div>
 
-      {/* Grid for main content */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-        {/* Study Timer Component */}
-        <div className="md:col-span-1 lg:col-span-1">
-          <StudyTimer onSessionEnd={handleSessionEnd} goals={goals} />
+      {/* Timer and Chart Row */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        {/* Study Timer Card */}
+        <div className="bg-white rounded-xl shadow-lg p-8">
+          <h3 className="text-xl font-semibold text-slate-800 mb-6">Study Timer</h3>
+          <div className="text-center">
+            <div className="text-6xl font-bold text-blue-500 mb-6 font-mono">
+              {formatTime(time)}
+            </div>
+            <div className="flex gap-4 justify-center">
+              <button 
+                onClick={() => setIsRunning(true)}
+                disabled={isRunning}
+                className={`px-6 py-2 rounded-lg font-semibold transition-colors duration-200 ${
+                  isRunning 
+                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
+                    : 'bg-green-500 hover:bg-green-600 text-white'
+                }`}
+              >
+                Start
+              </button>
+              <button 
+                onClick={() => setIsRunning(false)}
+                disabled={!isRunning}
+                className={`px-6 py-2 rounded-lg font-semibold transition-colors duration-200 ${
+                  !isRunning 
+                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
+                    : 'bg-red-500 hover:bg-red-600 text-white'
+                }`}
+              >
+                Stop
+              </button>
+              <button 
+                onClick={handleReset}
+                className="bg-slate-500 hover:bg-slate-600 text-white px-6 py-2 rounded-lg font-semibold transition-colors duration-200"
+              >
+                Reset
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* Progress Chart Component */}
-        <div className="md:col-span-1 lg:col-span-2">
-          <div className="bg-white rounded-xl shadow-lg p-6">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">Study Progress</h3>
-            <ProgressChart data={studySessions} />
+        {/* Study Progress Chart Card */}
+        <div className="bg-white rounded-xl shadow-lg p-8">
+          <h3 className="text-xl font-semibold text-slate-800 mb-6">Study Progress</h3>
+          <div className="flex items-end justify-between h-48 gap-2">
+            {studyData.map((day, index) => (
+              <div key={index} className="flex flex-col items-center flex-1">
+                <div className="w-full flex justify-center mb-2" style={{ height: '160px' }}>
+                  <div 
+                    className="bg-red-500 rounded-t w-8 transition-all duration-300"
+                    style={{ 
+                      height: `${(day.hours / maxHours) * 140}px`,
+                      minHeight: '8px'
+                    }}
+                  ></div>
+                </div>
+                <span className="text-xs text-slate-500 text-center">
+                  {day.date.slice(5)}
+                </span>
+                <span className="text-xs text-slate-400 text-center mt-1">
+                  {day.hours}h
+                </span>
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center justify-end mt-4">
+            <div className="w-4 h-4 bg-red-500 rounded mr-2"></div>
+            <span className="text-sm text-slate-600">Study Hours</span>
           </div>
         </div>
       </div>
-      
-      {/* Goals Section */}
-      <h2 className="text-2xl font-semibold text-gray-800 mb-4">My Active Goals</h2>
+
+      {/* Next Badge to Earn */}
+      <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
+        <h3 className="text-xl font-semibold text-slate-800 mb-6">📈 Next Badge to Earn</h3>
+        <div className="flex items-center gap-6">
+          <div className="text-5xl grayscale opacity-50">🐜🥧</div>
+          <div className="flex-1">
+            <h4 className="text-lg font-bold text-slate-800">Daily Dynamo</h4>
+            <p className="text-slate-600 mb-3">Complete 3-day study streak</p>
+            <div className="w-full bg-red-200 rounded-full h-3">
+              <div className="bg-red-500 h-3 rounded-full w-2/3 transition-all duration-300"></div>
+            </div>
+            <p className="text-xs text-slate-500 mt-1">2/3 days completed</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Goals List */}
       <div className="space-y-4">
-        {goals.length > 0 ? (
-          goals.map(goal => (
-            <GoalCard 
-              key={goal._id} 
-              goal={goal} 
-              onDailyCheckin={handleDailyCheckin} 
-            />
-          ))
-        ) : (
-          <p className="text-gray-500">You have no goals set up yet. Time to create one!</p>
-        )}
+        {goals.map((goal) => (
+          <div key={goal.id} className="bg-white rounded-xl shadow-lg p-6 border-l-4 border-red-500">
+            <div className="flex justify-between items-start mb-2">
+              <h3 className="text-xl font-bold text-slate-800">{goal.title}</h3>
+              <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                goal.priority === 'HIGH PRIORITY' 
+                  ? 'bg-red-100 text-red-600' 
+                  : 'bg-green-100 text-green-600'
+              }`}>
+                {goal.priority}
+              </span>
+            </div>
+            <p className="text-slate-600 mb-4">{goal.description}</p>
+            <div className="w-full bg-gray-200 rounded-full h-3">
+              <div 
+                className="bg-red-500 h-3 rounded-full transition-all duration-300" 
+                style={{width: `${goal.progress}%`}}
+              ></div>
+            </div>
+            <p className="text-xs text-slate-500 mt-2">{goal.progress}% complete</p>
+          </div>
+        ))}
       </div>
     </div>
   );

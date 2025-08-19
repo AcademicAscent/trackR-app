@@ -11,13 +11,14 @@ ChartJS.register(
   Legend
 );
 
+
 const ProgressChart = ({ data }) => {
   const chartData = {
     labels: data.map(item => item.date),
     datasets: [{
       label: 'Study Hours',
       data: data.map(item => item.hours),
-      backgroundColor: 'rgba(75, 192, 192, 0.6)',
+      backgroundColor: 'rgba(177, 5, 5, 0.79)',
     }],
   };
 
