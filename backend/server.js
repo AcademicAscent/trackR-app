@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import router from "./src/routes/goalRoutes.js";
 import goalRoutes from './src/routes/goalRoutes.js';
 import userRoutes from "./src/routes/userRoutes.js";
 import sessionRoutes from "./src/routes/sessionRoutes.js";
