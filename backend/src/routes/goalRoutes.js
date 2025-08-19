@@ -23,4 +23,11 @@ router.put('/goals/:id', goalController.updateGoal);
 //route to delete a goal by ID
 router.delete('/goals/:id', goalController.deleteGoal);
 
+// route to add a new Progress entry
+router.post('/progress', goalController.logProgress);
+
+// route to get specific user's achievements based on their user ID
+router.get('/achievements/:userId', goalController.getAchievements);
+
+
 export default router;
