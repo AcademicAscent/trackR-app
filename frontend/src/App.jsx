@@ -1,14 +1,25 @@
-import { useState } from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import SidebarLayout from "./components/SidebarLayout.jsx"
+import DashboardPage from "./components/DashboardPage.jsx"
+import AchievementsPage from "./components/AchievementsPage.jsx"
+import GoalFormPage from "./components/GoalFormPage.jsx"
+import SettingsPage from "./components/SettingsPage.jsx"
+import { AppProvider } from "./state/AppState.jsx"
 
-
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <div>
-      <h1 className='text-2xl'>Hola, Mundo!</h1>
-    </div>
+    <AppProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<SidebarLayout />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/achievements" element={<AchievementsPage />} />
+            <Route path="/goals/new" element={<GoalFormPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </AppProvider>
   )
 }
-
-export default App

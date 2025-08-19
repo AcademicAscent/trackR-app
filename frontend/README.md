@@ -65,3 +65,11 @@ Tailwind is configured with @tailwindcss/vite and does not require a separate Ta
 Brand colors are stored in src/index.css for quick reference.
 
 This setup uses Tailwind CSS v4 syntax.
+
+Figma files
+
+low fi 
+https://www.figma.com/design/wZVbpJcVqwSMrRhDUFvRhT/TrackR-Low-Fi?node-id=1-58&t=YpF8AN8rH0c0u5Tc-1
+
+hi fi
+https://www.figma.com/design/Gh5mQmm8UWSTApftcA6YHQ/TrackR-Hi-Fi?node-id=1-58&t=LkBWiSzT0zFlMbOo-1
