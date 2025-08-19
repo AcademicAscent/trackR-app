@@ -1,7 +1,11 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const { createClient } = require('@supabase/supabase-js');
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import { createClient } from '@supabase/supabase-js';
+import goalRoutes from './routes/goalRoutes.js';
+import sessionRoutes from './routes/sessionRoutes.js';
+
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -18,8 +22,13 @@ app.use(express.json());
 
 // Basic test route
 app.get('/', (req, res) => {
-    res.send('Academic Ascent Backend is running!');
+    res.send('Antventure Backend is running!');
 });
+// API Routes
+app.use('/api', goalRoutes);
+app.use('/api', sessionRoutes);
+
+
 
 // Authentication routes
 app.post('/auth/signup', async (req, res) => {
