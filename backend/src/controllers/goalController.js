@@ -69,4 +69,31 @@ export const deleteGoal = async (req, res) => {
     }
 }
 
+//Creates new progress entry
+export const logProgress = async (req, res) => {
+  const { value, userId, goalId } = req.body;
+  try {
+    const progress = await prisma.progress.create({
+      data: { value, userId, goalId }
+    });
+    res.status(201).json(progress);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+//fetch all achievements for a user
+export const getAchievements = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const achievements = await prisma.achievement.findMany({
+      where: { userId }
+    });
+    res.status(200).json(achievements);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
 
