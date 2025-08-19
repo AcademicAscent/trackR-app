@@ -12,3 +12,8 @@ export const prisma = globalForPrisma.prisma || new PrismaClient({
 if (process.env.NODE_ENV !== 'production') {
     globalForPrisma.prisma = prisma;
 }
+
+// Add cleanup on process termination
+process.on('beforeExit', async () => {
+    await prisma.$disconnect();
+});
