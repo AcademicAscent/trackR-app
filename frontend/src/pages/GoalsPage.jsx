@@ -44,10 +44,13 @@ function GoalsPage() {
   return (
     <div className="max-w-4xl mx-auto p-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold text-gray-800">My Goals 🎯</h1>
+        <h1 className="text-4xl font-bold text-gray-800 flex items-center gap-3">
+            <img src="src/images/ant-cookie2.png" alt="Goals" className="w-24 h-34" />
+            My Goals
+            </h1>
         <button
           onClick={() => setShowAddForm(!showAddForm)}
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
+          className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
         >
           + Add New Goal
         </button>
@@ -85,7 +88,7 @@ function GoalsPage() {
             <div className="flex space-x-3">
               <button
                 type="submit"
-                className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg"
+                className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg"
               >
                 Save Goal
               </button>
@@ -124,7 +127,7 @@ function GoalsPage() {
               </div>
               <div className="flex-1 bg-gray-200 rounded-full h-2">
                 <div 
-                  className="bg-green-500 h-2 rounded-full" 
+                  className="bg-red-500 h-2 rounded-full" 
                   style={{ width: `${Math.min(goal.progress.length * 10, 100)}%` }}
                 ></div>
               </div>

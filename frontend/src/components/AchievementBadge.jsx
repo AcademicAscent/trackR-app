@@ -6,13 +6,13 @@ function AchievementsPage() {
     { 
       id: '1', 
       name: 'First Goal Complete',
-      design: '🐜🍪',
+      design: 'src/images/ant-cookie.png',
       earnedDate: '2025-08-10'
     },
     { 
       id: '2', 
       name: 'Study Master',
-      design: '🐜💎',
+      design: 'src/images/ant-gem.png',
       earnedDate: '2025-08-09'
     }
   ];
@@ -21,7 +21,7 @@ function AchievementsPage() {
     {
       id: 'daily_dynamo_3_day',
       name: 'Daily Dynamo',
-      design: '🐜🥧',
+      design: 'src/images/ant-pie.png',
       description: '3-day study streak'
     }
   ];

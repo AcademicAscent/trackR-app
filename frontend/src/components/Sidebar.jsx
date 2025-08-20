@@ -18,7 +18,7 @@ function Sidebar() {
     <div className="w-64 bg-slate-800 text-white min-h-screen flex flex-col">
       {/* Sidebar Header */}
       <div className="p-6 border-b border-slate-700">
-        <h2 className="text-xl font-bold text-white">Sidebar</h2>
+        <h2 className="text-xl font-bold text-white">My Antventure</h2>
       </div>
 
       {/* Navigation Items */}
