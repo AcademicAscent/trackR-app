@@ -1,4 +1,5 @@
 import React from 'react';
+import { useApp } from "../state/AppState.jsx"
 
 function AchievementsPage() {
   const badges = [
@@ -60,7 +61,7 @@ function AchievementsPage() {
     <div className="max-w-4xl mx-auto p-8">
       {/* Header */}
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold text-red-800 mb-4">Your Achievements 🏆</h1>
+        <h1 className="text-3xl font-extrabold mb-1">Achievements 🏆</h1>
         <p className="text-lg text-gray-700">
           You've earned <span className="font-semibold text-red-600">{earnedCount}</span> out of {badges.length} total badges
         </p>
@@ -113,3 +114,8 @@ function AchievementsPage() {
 }
 
 export default AchievementsPage;
+
+
+
+
+

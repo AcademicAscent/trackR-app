@@ -41,26 +41,3 @@ export default function App() {
     </AppProvider>
   );
 }
-
-// 3) Teammate's layout preserved as a named export (compiles, not used by default)
-export function AppYasy() {
-  return (
-    <AppProvider>
-      <BrowserRouter>
-        <div className="min-h-screen bg-gray-100 flex">
-          <Sidebar />
-          <div className="flex-1">
-            <Routes>
-              {/* allow "/" to land on dashboard just like their version */}
-              <Route path="/" element={<DashboardPage />} />
-              {appRoutes.map(r => (
-                <Route key={r.path} path={r.path} element={r.element} />
-              ))}
-              <Route path="*" element={<Navigate to="/dashboard" replace />} />
-            </Routes>
-          </div>
-        </div>
-      </BrowserRouter>
-    </AppProvider>
-  );
-}
