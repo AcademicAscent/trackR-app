@@ -161,7 +161,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\ejree\\Documents\\Course Exercises\\trackR-app\\backend\\src\\generated\\prisma",
+      "value": "/Users/pauriany/TKH/trackR-app-p/backend/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -170,12 +170,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\ejree\\Documents\\Course Exercises\\trackR-app\\backend\\prisma\\schema.prisma",
+    "sourceFilePath": "/Users/pauriany/TKH/trackR-app-p/backend/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
