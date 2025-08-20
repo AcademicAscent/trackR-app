@@ -69,7 +69,7 @@ export default function SidebarLayout() {
         {/* Sidebar */}
         <aside className="w-64 bg-[#0F172A] text-white p-6 flex flex-col">
           <div>
-            <div className="text-lg font-semibold mb-6">Sidebar</div>
+            <div className="text-lg font-semibold mb-6">My Ant-venture</div>
             <nav className="space-y-3">
               <NavItem to="/dashboard">Dashboard</NavItem>
               <NavItem to="/goals/new">Goals</NavItem>

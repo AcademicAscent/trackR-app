@@ -162,7 +162,11 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
+<<<<<<< Updated upstream
       "value": "/Users/pauriany/TKH/trackR-app-p/backend/src/generated/prisma",
+=======
+      "value": "C:\\Users\\ejree\\Documents\\Course Exercises\\trackR-app\\backend\\src\\generated\\prisma",
+>>>>>>> Stashed changes
       "fromEnvVar": null
     },
     "config": {
@@ -171,12 +175,20 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
+<<<<<<< Updated upstream
         "value": "darwin",
+=======
+        "value": "windows",
+>>>>>>> Stashed changes
         "native": true
       }
     ],
     "previewFeatures": [],
+<<<<<<< Updated upstream
     "sourceFilePath": "/Users/pauriany/TKH/trackR-app-p/backend/prisma/schema.prisma",
+=======
+    "sourceFilePath": "C:\\Users\\ejree\\Documents\\Course Exercises\\trackR-app\\backend\\prisma\\schema.prisma",
+>>>>>>> Stashed changes
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -238,8 +250,13 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
+<<<<<<< Updated upstream
 path.join(__dirname, "libquery_engine-darwin.dylib.node");
 path.join(process.cwd(), "src/generated/prisma/libquery_engine-darwin.dylib.node")
+=======
+path.join(__dirname, "query_engine-windows.dll.node");
+path.join(process.cwd(), "src/generated/prisma/query_engine-windows.dll.node")
+>>>>>>> Stashed changes
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "src/generated/prisma/schema.prisma")

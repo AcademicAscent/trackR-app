@@ -2,6 +2,11 @@ import ProgressBar from "./ProgressBar.jsx"
 import StatusPill from "./StatusPill.jsx"
 import { useApp } from "../state/AppState.jsx"
 
+function clampPct(v) {
+    const n = Number(v) || 0
+    return Math.max(0, Math.min(100, Math.round(n)))
+}
+
 export default function GoalCard({ id, title, description, progress = 0, status = "high", editable = false }) {
     const { updateGoalProgress } = useApp()
     const pct = clampPct(progress)
@@ -10,6 +15,16 @@ export default function GoalCard({ id, title, description, progress = 0, status 
     const markDone = () => id && updateGoalProgress(id, 100)
     const reset = () => id && updateGoalProgress(id, 0)
 
+    const todayCheckedIn = goal && goal.progress && goal.progress.some(p => {
+        const progressDate = new Date(p.date);
+        const today = new Date();
+        return (
+            progressDate.getFullYear() === today.getFullYear() &&
+            progressDate.getMonth() === today.getMonth() &&
+            progressDate.getDate() === today.getDate()
+        );
+    });
+        
     return (
         <div className="bg-white dark:bg-[#0F172A] rounded-xl shadow p-4 border border-gray-100 dark:border-gray-700">
             <div className="flex items-start gap-4">
@@ -33,63 +48,25 @@ export default function GoalCard({ id, title, description, progress = 0, status 
                             <span className="text-sm text-gray-600 dark:text-gray-300 tabular-nums w-12 text-right">{pct}%</span>
                             <button type="button" onClick={markDone} className="px-3 py-1.5 rounded bg-[#10B981] text-white text-xs font-semibold">Mark done</button>
                             <button type="button" onClick={reset} className="px-3 py-1.5 rounded bg-gray-200 text-[#0F172A] text-xs font-semibold dark:bg-gray-700 dark:text-gray-100">Reset</button>
+                            <button
+                                onClick={() => onDailyCheckin(id)}
+                                disabled={todayCheckedIn}
+                                className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-colors duration-200
+                                  ${todayCheckedIn
+                                        ? 'bg-green-500 border-green-500 text-white'
+                                        : 'bg-white border-gray-400 hover:bg-gray-100'
+                                    } `}
+                            >
+                                {todayCheckedIn && (
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                )}
+                            </button>
                         </div>
                     )}
                 </div>
             </div>
         </div>
     )
-}
-
-function clampPct(v) {
-    const n = Number(v) || 0
-    return Math.max(0, Math.min(100, Math.round(n)))
-}
-
-//Yasy this is your latest pr feature/achievement below please incorporate your work into P's version of goal component above
-function  Yasy (){
-    // frontend/src/components/GoalCard.jsx
-
-    import React from 'react';
-
-    function GoalCard({ goal, onDailyCheckin }) {
-        // Check if there is a check-in for today
-        const todayCheckedIn = goal.progress.some(p => {
-            const progressDate = new Date(p.date);
-            const today = new Date();
-            return (
-                progressDate.getFullYear() === today.getFullYear() &&
-                progressDate.getMonth() === today.getMonth() &&
-                progressDate.getDate() === today.getDate()
-            );
-        });
-
-        return (
-            <div className="bg-white rounded-xl shadow-lg p-6 flex items-center justify-between">
-                <div>
-                    <h3 className="text-xl font-semibold text-gray-800">{goal.title}</h3>
-                    <p className="text-gray-500 mt-1">{goal.description}</p>
-                </div>
-
-                {/* The circular check-in button */}
-                <button
-                    onClick={() => onDailyCheckin(goal._id)}
-                    disabled={todayCheckedIn}
-                    className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-colors duration-200
-          ${todayCheckedIn
-                        ? 'bg-green-500 border-green-500 text-white'
-                        : 'bg-white border-gray-400 hover:bg-gray-100'
-                    } `}
-                >
-                    {todayCheckedIn && (
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                    )}
-                </button>
-            </div>
-        );
-    }
-
-    export default GoalCard;
 }
