@@ -1,12 +1,75 @@
-# React + Vite
+# Frontend – Vite + React + Tailwind CSS (v4)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is built using Vite, React, and Tailwind CSS v4. It provides a fast development environment with hot module replacement (HMR) and utility-first styling.
 
-Currently, two official plugins are available:
+## Stack
+- [Vite](https://vitejs.dev/) – build tool and development server
+- [React](https://react.dev/) – JavaScript UI library
+- [Tailwind CSS v4](https://tailwindcss.com/) – utility-first CSS framework
+- [@tailwindcss/vite](https://tailwindcss.com/docs/installation/using-vite) – official Tailwind plugin for Vite
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation
+From the `frontend/` directory:
+```bash
+npm install
+Development
+To start the development server:
 
-## Expanding the ESLint configuration
+bash
+Copy
+Edit
+npm run dev
+The application will open in the browser with HMR enabled.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Tailwind Setup
+Tailwind CSS is imported in src/index.css:
+
+css
+Copy
+Edit
+@import "tailwindcss";
+Brand Colors
+Defined in src/index.css as CSS variables:
+
+css
+Copy
+Edit
+--color-blue: #0F172A;          /* rgb(15, 23, 42) - Dark Navy */
+--color-red: #E11D48;           /* rgb(225, 29, 72) - Crimson Red */
+--color-red-highlight: #FBE2E8; /* rgb(251, 226, 232) - Misty Rose Pink */
+--color-green: #10B981;         /* rgb(16, 185, 129) - Emerald Green */
+--color-green-highlight: #E1F6EF; /* rgb(225, 246, 239) - Mint Cream */
+Project Structure
+lua
+Copy
+Edit
+frontend/
+ ├─ index.html
+ ├─ vite.config.js / vite.config.ts
+ ├─ src/
+ │   ├─ App.jsx
+ │   ├─ main.jsx
+ │   └─ index.css
+ ├─ package.json
+ └─ README.md
+Scripts
+npm run dev – start development server
+
+npm run build – build for production
+
+npm run preview – preview the production build locally
+
+Notes
+Tailwind is configured with @tailwindcss/vite and does not require a separate Tailwind configuration file for basic use.
+
+Brand colors are stored in src/index.css for quick reference.
+
+This setup uses Tailwind CSS v4 syntax.
+
+Figma files
+
+low fi 
+https://www.figma.com/design/wZVbpJcVqwSMrRhDUFvRhT/TrackR-Low-Fi?node-id=1-58&t=YpF8AN8rH0c0u5Tc-1
+
+hi fi
+https://www.figma.com/design/Gh5mQmm8UWSTApftcA6YHQ/TrackR-Hi-Fi?node-id=1-58&t=LkBWiSzT0zFlMbOo-1
