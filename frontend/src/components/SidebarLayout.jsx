@@ -1,67 +1,69 @@
-import { NavLink, Outlet } from "react-router-dom"
-import { useEffect, useMemo, useRef, useState } from "react"
-import AuthModal from "./AuthModal.jsx"
-import { useApp } from "../state/AppState.jsx"
+import { NavLink, Outlet, useLocation, Link } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
+import AuthModal from "./AuthModal.jsx";
+import { useApp } from "../state/AppState.jsx";
 
 export default function SidebarLayout() {
-  const { user, logout, settings } = useApp()
-  const [authOpen, setAuthOpen] = useState(false)
-  const audioRef = useRef(null)
+  const { user, logout, settings } = useApp();
+  const [authOpen, setAuthOpen] = useState(false);
+  const audioRef = useRef(null);
+  const location = useLocation();
+  const onGoals = location.pathname.startsWith("/goals");
 
   // Dark mode on <html>
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", !!settings.darkMode)
-  }, [settings.darkMode])
+    document.documentElement.classList.toggle("dark", !!settings.darkMode);
+  }, [settings.darkMode]);
 
   // Direct URL playback (only when provider === "url")
   useEffect(() => {
-    const audio = audioRef.current
-    if (!audio) return
+    const audio = audioRef.current;
+    if (!audio) return;
     try {
       if (settings.bgmProvider !== "url") {
-        audio.pause()
-        audio.removeAttribute("src")
-        audio.load()
-        return
+        audio.pause();
+        audio.removeAttribute("src");
+        audio.load();
+        return;
       }
-      audio.volume = settings.bgmVolume ?? 0.4
+      audio.volume = settings.bgmVolume ?? 0.4;
       if (settings.bgmEnabled && settings.bgmUrl) {
-        if (audio.src !== settings.bgmUrl) audio.src = settings.bgmUrl
-        audio.loop = true
-        audio.play().catch(() => {}) // user may need to click play due to autoplay policies
+        if (audio.src !== settings.bgmUrl) audio.src = settings.bgmUrl;
+        audio.loop = true;
+        audio.play().catch(() => {});
       } else {
-        audio.pause()
-        audio.removeAttribute("src")
-        audio.load()
+        audio.pause();
+        audio.removeAttribute("src");
+        audio.load();
       }
     } catch {}
-  }, [settings.bgmEnabled, settings.bgmUrl, settings.bgmVolume, settings.bgmProvider])
+  }, [settings.bgmEnabled, settings.bgmUrl, settings.bgmVolume, settings.bgmProvider]);
 
   // Build embed URLs for Spotify / Apple
   const spotifyEmbedSrc = useMemo(() => {
-    const raw = (settings.bgmSpotifyUrl || "").trim()
-    if (!raw) return ""
+    const raw = (settings.bgmSpotifyUrl || "").trim();
+    if (!raw) return "";
     try {
-      const u = new URL(raw, window.location.origin)
-      const parts = u.pathname.split("/").filter(Boolean) // ['playlist','{id}'] | ['track','{id}'] | ['album','{id}']
+      const u = new URL(raw, window.location.origin);
+      const parts = u.pathname.split("/").filter(Boolean);
       if (parts.length >= 2) {
-        const type = parts[0]
-        const id = parts[1].split("?")[0]
-        return `https://open.spotify.com/embed/${type}/${id}?utm_source=oembed`
+        const type = parts[0];
+        const id = parts[1].split("?")[0];
+        return `https://open.spotify.com/embed/${type}/${id}?utm_source=oembed`;
       }
     } catch {}
-    return ""
-  }, [settings.bgmSpotifyUrl])
+    return "";
+  }, [settings.bgmSpotifyUrl]);
 
   const appleEmbedSrc = useMemo(() => {
-    const raw = (settings.bgmAppleUrl || "").trim()
-    if (!raw) return ""
+    const raw = (settings.bgmAppleUrl || "").trim();
+    if (!raw) return "";
     try {
-      const u = new URL(raw, window.location.origin)
-      return `https://embed.music.apple.com${u.pathname}${u.search}`
+      const u = new URL(raw, window.location.origin);
+      return `https://embed.music.apple.com${u.pathname}${u.search}`;
     } catch {}
-    return ""
-  }, [settings.bgmAppleUrl])
+    return "";
+  }, [settings.bgmAppleUrl]);
 
   return (
     <div className={settings.darkMode ? "dark" : ""}>
@@ -71,8 +73,8 @@ export default function SidebarLayout() {
           <div>
             <div className="text-lg font-semibold mb-6">Sidebar</div>
             <nav className="space-y-3">
-              <NavItem to="/dashboard">Dashboard</NavItem>
-              <NavItem to="/goals/new">Goals</NavItem>
+              <NavItem to="/dashboard" end>Dashboard</NavItem>
+              <NavItem to="/goals">Goals</NavItem>
               <NavItem to="/achievements">Achievements</NavItem>
               <NavItem to="/settings">Settings</NavItem>
             </nav>
@@ -138,6 +140,16 @@ export default function SidebarLayout() {
         {/* Main */}
         <main className="flex-1 flex flex-col">
           <header className="flex items-center justify-end gap-3 p-4 border-b border-gray-200 bg-white dark:bg-[#0F172A] dark:border-gray-700">
+            {/* Quick action only on /goals* */}
+            {onGoals && (
+              <Link
+                to="/goals/new"
+                className="px-3 py-2 rounded text-sm font-semibold bg-[#0F172A] text-white dark:bg-[#111827]"
+              >
+                + Add New Goal
+              </Link>
+            )}
+
             {user ? (
               <div className="flex items-center gap-3">
                 <span className="hidden sm:block text-sm text-gray-500 dark:text-gray-300">
@@ -171,18 +183,21 @@ export default function SidebarLayout() {
       {/* Auth Modal */}
       <AuthModal isOpen={authOpen} onClose={() => setAuthOpen(false)} />
     </div>
-  )
+  );
 }
 
-function NavItem({ to, children }) {
+function NavItem({ to, end = false, children }) {
   return (
     <NavLink
       to={to}
+      end={end}
       className={({ isActive }) =>
-        isActive ? "block px-2 py-1 rounded bg-white/10" : "block px-2 py-1 rounded hover:bg-white/10"
+        isActive
+          ? "block px-2 py-1 rounded bg-white/10"
+          : "block px-2 py-1 rounded hover:bg-white/10"
       }
     >
       {children}
     </NavLink>
-  )
+  );
 }
