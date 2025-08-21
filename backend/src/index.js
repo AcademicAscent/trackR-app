@@ -4,6 +4,7 @@ import cors from 'cors';
 import { createClient } from '@supabase/supabase-js';
 import goalRoutes from './routes/goalRoutes.js';
 import sessionRoutes from './routes/sessionRoutes.js';
+import userRoutes from "./routes/userRoutes.js";
 
 
 
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
 // API Routes
 app.use('/api', goalRoutes);
 app.use('/api', sessionRoutes);
+app.use('/api', userRoutes);
 
 
 

@@ -28,10 +28,11 @@ export const createUser = async (req, res) => {
 
 // Get a single user by ID
 export const getUserById = async (req, res) => {
+    console.log(req.user);
     const { id } = req.params;
     try {
         const user = await prisma.user.findUnique({
-            where: { id: parseInt(id) }
+            where: { id: id }
         });
         if (user) {
             res.status(200).json(user);

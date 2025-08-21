@@ -161,7 +161,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/pauriany/TKH/trackR-app-p/backend/src/generated/prisma",
+      "value": "/Users/nlewis.if25/Documents/TeamNikoProject/Antventure/backend/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -170,12 +170,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/pauriany/TKH/trackR-app-p/backend/prisma/schema.prisma",
+    "sourceFilePath": "/Users/nlewis.if25/Documents/TeamNikoProject/Antventure/backend/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -189,7 +189,6 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
