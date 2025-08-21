@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import GoalCard from "./GoalCard.jsx"
+import { useState, useEffect } from 'react';
+// import GoalCard from "./GoalCard.jsx"
 import { useApp } from "../state/AppState.jsx"
 import { useNavigate } from "react-router";
 
-function Dashboard() {
-  const { goals } = useApp()
-  
+function DashboardPage() {
+    const { goals } = useApp()
+
+const sampleGoals = goals.length > 0 ? goals : [
+  { id: '1', title: 'Study JavaScript', description: 'Practice fundamentals daily' },
+  { id: '2', title: 'Read Technical Books', description: 'Read for 30 minutes each day' }
+]
+  const [showDropdown, setShowDropdown] = useState(false)
   const [checkIns, setCheckIns] = useState(2);
   const [totalStudyTime, setTotalStudyTime] = useState(8.2);
   const [lastCheckIn, setLastCheckIn] = useState('2025-08-17');
@@ -32,14 +37,21 @@ function Dashboard() {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const handleCheckIn = () => {
+const handleCheckIn = (goalId = null) => {
+  if (goalId) {
+    // Check in for specific goal
+    console.log('Checking in for goal:', goalId)
     const today = new Date().toISOString().split('T')[0];
     if (lastCheckIn !== today) {
       setCheckIns(prev => prev + 1);
       setTotalStudyTime(prev => prev + 2);
       setLastCheckIn(today);
     }
-  };
+    setShowDropdown(false)
+  } else {
+    setShowDropdown(!showDropdown)
+  }
+};
 
   const handleReset = () => {
     setTime(0);
@@ -119,7 +131,7 @@ function Dashboard() {
     <div className="max-w-6xl mx-auto p-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold text-slate-800 dark:text-white">Progress Dashboard</h1>
+        <h1 className="text-3xl font-extrabold mb-4">Progress Dashboard</h1>
         <button 
           onClick={handleAddGoal}
           className="bg-[#E11D48] hover:bg-[#E11D48] text-white px-6 py-3 rounded font-semibold shadow-lg transition-colors duration-200"
@@ -129,9 +141,9 @@ function Dashboard() {
       </div>
 
       {/* Check In Button */}
-      <div className="mb-8">
+      <div className="relative mb-8">
          <button 
-          onClick={handleCheckIn}
+          onClick={() => handleCheckIn()}
           disabled={isCheckedInToday}
           className={`w-full py-4 px-6 rounded-xl font-bold text-lg shadow-lg transition-all flex items-center justify-center gap-3 ${
             isCheckedInToday 
@@ -147,6 +159,23 @@ function Dashboard() {
               <img src="src/images/anthill.png" alt="Check In" className="w-12 h-10" />CHECK IN
             </>)}
         </button>
+
+        {showDropdown && !isCheckedInToday && (
+        <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded shadow-lg border z-10">
+        <div className="p-2">
+            <div className="text-sm font-medium text-gray-700 p-2">Select goal to check in:</div>
+            {sampleGoals.map((goal) => (
+            <button
+                key={goal.id}
+                onClick={() => handleCheckIn(goal.id)}
+                className="w-full text-left p-3 hover:bg-gray-50 rounded-lg"
+            >
+                {goal.title}
+            </button>
+            ))}
+        </div>
+        </div>
+        )}
       </div>
 
       {/* Weekly Metrics Row */}
@@ -283,13 +312,13 @@ function Dashboard() {
         </div>
 
         {/* Study Progress Chart Card */}
-        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8">
+        <div className="bg-white dark:bg-slate-800 rounded shadow-lg p-8">
           <h3 className="text-xl font-semibold text-slate-800 dark:text-white mb-6">Study Progress</h3>
           <div className="flex items-end justify-center h-48 gap-4">
             {studyData.map((day, index) => (
               <div key={index} className="flex flex-col items-center">
                 <div 
-                  className="bg-red-500 w-12 transition-all duration-300 rounded-t hover:bg-red-400"
+                  className="bg-[#E11D48] w-12 transition-all duration-300 rounded-t hover:bg-[#E11D48]"
                   style={{ 
                     height: `${(day.hours / maxHours) * 160}px`,
                     minHeight: '12px'
@@ -305,14 +334,14 @@ function Dashboard() {
             ))}
           </div>
           <div className="flex items-center justify-end mt-4">
-            <div className="w-4 h-4 bg-red-500 rounded mr-2"></div>
+            <div className="w-4 h-4 bg-[#E11D48] rounded mr-2"></div>
             <span className="text-sm text-slate-600 dark:text-slate-300">Study Hours</span>
           </div>
         </div>
       </div>
 
       {/* Next Badge to Earn */}
-      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8 mb-8">
+      <div className="bg-white dark:bg-slate-800 rounded shadow-lg p-8 mb-8">
         <h3 className="text-xl font-semibold text-slate-800 dark:text-white mb-6">Next Badge to Earn</h3>
         <div className="flex items-center gap-6">
           <img 
@@ -323,34 +352,38 @@ function Dashboard() {
           <div className="flex-1">
             <h4 className="text-lg font-bold text-slate-800 dark:text-white">Daily Dynamo</h4>
             <p className="text-slate-600 dark:text-slate-300 mb-3">Complete 3-day study streak</p>
-            <div className="w-full bg-red-200 dark:bg-red-900 rounded-full h-3">
-              <div className="bg-red-500 h-3 rounded-full w-2/3 transition-all duration-300"></div>
+            <div className="w-full bg-red-200 dark:bg-[#E11D48] rounded-full h-3">
+              <div className="bg-[#E11D48] h-3 rounded-full w-2/3 transition-all duration-300"></div>
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">2/3 days completed</p>
           </div>
         </div>
       </div>
 
-      {/* Goals List */}
-      {goals.length === 0 ? (
+   {/* Goals List */}
+    <div className="space-y-4">
+    {sampleGoals.map((goal) => (
+        <div key={goal.id} className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6">
+        <div className="flex justify-between items-start mb-4">
+            <div>
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-white">{goal.title}</h3>
+            <p className="text-gray-600 dark:text-gray-300 mt-1">{goal.description}</p>
+            </div>
+        </div>
+        </div>
+    ))}
+    
+    {sampleGoals.length === 0 && (
         <div className="bg-white dark:bg-slate-800 rounded-xl border border-dashed border-gray-300 dark:border-gray-700 p-8 text-center text-gray-600 dark:text-gray-300">
-          No goals yet. Click "Add Goal" to get started!
+        <div className="text-6xl mb-4">🎯</div>
+        <p className="text-xl">No goals yet!</p>
+        <p>Click "Add Goal" to get started!</p>
         </div>
-      ) : (
-        <div className="space-y-4">
-          {goals.map((g) => (
-            <GoalCard
-              key={g.id}
-              id={g.id}
-              title={g.title}
-              description={g.description || "Short description"}
-              progress={clampPct(g.progress)}
-              status={g.state === "earned" ? "track" : "high"}
-              editable
-            />
-          ))}
-        </div>
-      )}
+    )}
+    </div>
     </div>
   );
 }
+
+export default DashboardPage
+

@@ -7,6 +7,7 @@ function clampPct(v) {
     return Math.max(0, Math.min(100, Math.round(n)))
 }
 
+
 export default function GoalCard({ id, title, description, progress = 0, status = "high", editable = false }) {
     const { updateGoalProgress } = useApp()
     const pct = clampPct(progress)

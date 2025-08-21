@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import SidebarLayout from "./components/SidebarLayout.jsx"
 import DashboardPage from "./components/DashboardPage.jsx"
-import AchievementsPage from "./components/AchievementsPage.jsx"
+import AchievementsPage from "./pages/AchievementsPage.jsx"
 import GoalFormPage from "./components/GoalFormPage.jsx"
 import SettingsPage from "./components/SettingsPage.jsx"
 import { AppProvider } from "./state/AppState.jsx"
