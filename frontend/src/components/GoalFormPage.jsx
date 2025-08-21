@@ -113,7 +113,7 @@ export default function GoalFormPage() {
       setSaving(false);
     }
     createGoal(form)
-    // Also add to local goals array
+
     const newGoal = {
       _id: Date.now().toString(),
       ...form,
@@ -133,22 +133,22 @@ export default function GoalFormPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-5xl font-bold text-gray-800 flex items-center gap-8">
+    <div className="max-w-4xl mx-auto p-3">
+      <div className="flex justify-between items-center mb-3">
+        <h1 className="text-3xl font-extrabold mb-4">
         <img src={antCookie} alt="Goals" className="w-30 h-44" />
           My Goals
         </h1>
       </div>
 
       {!user && (
-        <div className="mb-4 text-sm text-gray-600">
+        <div className="text-3 font-light mb-2">
           (Tip: Log in from the sidebar to keep your goals saved to this browser.)
         </div>
       )}
 
       {/* Goal Form */}
-        <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
+        <div className="bg-white rounded shadow-lg p-6 mb-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -156,7 +156,7 @@ export default function GoalFormPage() {
               </label>
               <input 
                 type="text"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" 
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" 
                 placeholder="Enter your goal..." 
                 value={form.title} 
                 onChange={(e) => update("title", e.target.value)} 
@@ -169,7 +169,7 @@ export default function GoalFormPage() {
                 Description
               </label>
               <textarea 
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" 
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" 
                 rows="3" 
                 placeholder="Describe your goal..." 
                 value={form.description} 
@@ -182,7 +182,7 @@ export default function GoalFormPage() {
                 Category
               </label>
               <select 
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" 
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" 
                 value={form.category} 
                 onChange={(e) => update("category", e.target.value)}
               >
@@ -199,7 +199,7 @@ export default function GoalFormPage() {
               </label>
               <input 
                 type="date" 
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" 
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" 
                 value={form.startDate} 
                 onChange={(e) => handleStartDate(e.target.value)} 
                 min={today} 
@@ -214,7 +214,7 @@ export default function GoalFormPage() {
               </label>
               <input 
                 type="date" 
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" 
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" 
                 value={form.endDate} 
                 onChange={(e) => handleEndDate(e.target.value)} 
                 min={form.startDate || today} 
@@ -229,7 +229,7 @@ export default function GoalFormPage() {
                 Target Value
               </label>
               <input 
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" 
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" 
                 placeholder="Target Value" 
                 value={form.targetValue} 
                 onChange={(e) => update("targetValue", e.target.value)} 
@@ -241,7 +241,7 @@ export default function GoalFormPage() {
                 Unit
               </label>
               <select 
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" 
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" 
                 value={form.unit} 
                 onChange={(e) => update("unit", e.target.value)}
               >
@@ -312,7 +312,6 @@ export default function GoalFormPage() {
 
         {(!goals || goals.length === 0) && (
           <div className="text-center py-12 text-gray-500">
-            <div className="text-6xl mb-4">🎯</div>
             <p className="text-xl">No goals yet!</p>
             <p>Click "Add New Goal" to get started.</p>
           </div>
