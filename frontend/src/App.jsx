@@ -1,56 +1,62 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
-import SidebarLayout from "./components/SidebarLayout.jsx"
-import DashboardPage from "./components/DashboardPage.jsx"
-import AchievementsPage from "./components/AchievementsPage.jsx"
-import GoalFormPage from "./components/GoalFormPage.jsx"
-import SettingsPage from "./components/SettingsPage.jsx"
-import { AppProvider } from "./state/AppState.jsx"
+// src/App.jsx
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AppProvider } from "./state/AppState.jsx";
+import SidebarLayout from "./components/SidebarLayout.jsx";
+import Sidebar from "./components/Sidebar.jsx"; // used by AppYasy
+import DashboardPage from "./components/DashboardPage.jsx";
+import AchievementsPage from "./components/AchievementsPage.jsx";
+import SettingsPage from "./components/SettingsPage.jsx";
+import GoalFormPage from "./components/GoalFormPage.jsx";
+import GoalsPage from "./pages/GoalsPage.jsx";
 
+// 1) Single source of truth for the child routes
+const appRoutes = [
+  { path: "/dashboard", element: <DashboardPage /> },
+  { path: "/achievements", element: <AchievementsPage /> },
+  { path: "/goals", element: <GoalsPage /> },                 // list (GET)
+  { path: "/goals/new", element: <GoalFormPage /> },          // create (POST)
+  { path: "/goals/:id/edit", element: <GoalFormPage /> },     // edit (PUT)
+  { path: "/settings", element: <SettingsPage /> },
+];
+
+// 2) Your version (uses SidebarLayout + <Outlet />)
 export default function App() {
-    return (
-        <AppProvider>
-            <BrowserRouter>
-                <Routes>
-                    <Route element={<SidebarLayout />}>
-                        <Route path="/dashboard" element={<DashboardPage />} />
-                        <Route path="/achievements" element={<AchievementsPage />} />
-                        <Route path="/goals/new" element={<GoalFormPage />} />
-                        <Route path="/settings" element={<SettingsPage />} />
-                    </Route>
-                    <Route path="*" element={<Navigate to="/dashboard" replace />} />
-                </Routes>
-            </BrowserRouter>
-        </AppProvider>
-    )
+  return (
+    <AppProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<SidebarLayout />}>
+            <Route index element={<Navigate to="/dashboard" replace />} />
+            {appRoutes.map(r => (
+              <Route key={r.path} path={r.path} element={r.element} />
+            ))}
+          </Route>
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </AppProvider>
+  );
 }
 
-//Yasy below is your code for this component please work on fitting your work into P's version above
-function Yasy (){
-    import React from 'react';
-    import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-    import Sidebar from './components/Sidebar';
-    import Dashboard from './pages/Dashboard';
-    import AchievementsPage from './pages/AchievementsPage';
-    import GoalsPage from './pages/GoalsPage';
-
-    function App() {
-        return (
-            <Router>
-                <div className="min-h-screen bg-gray-100 flex">
-                    <Sidebar />
-                    <div className="flex-1">
-                        <Routes>
-                            <Route path="/" element={<Dashboard />} />
-                            <Route path="/dashboard" element={<Dashboard />} />
-                            <Route path="/achievements" element={<AchievementsPage />} />
-                            <Route path="/goals" element={<GoalsPage />} />
-                            <Route path="/settings" element={<div className="p-8"><h1 className="text-3xl font-bold">Settings Page</h1><p>Settings content coming soon...</p></div>} />
-                        </Routes>
-                    </div>
-                </div>
-            </Router>
-        );
-    }
-
-    export default App;
+// 3) Teammate's layout preserved as a named export (compiles, not used by default)
+export function AppYasy() {
+  return (
+    <AppProvider>
+      <BrowserRouter>
+        <div className="min-h-screen bg-gray-100 flex">
+          <Sidebar />
+          <div className="flex-1">
+            <Routes>
+              {/* allow "/" to land on dashboard just like their version */}
+              <Route path="/" element={<DashboardPage />} />
+              {appRoutes.map(r => (
+                <Route key={r.path} path={r.path} element={r.element} />
+              ))}
+              <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            </Routes>
+          </div>
+        </div>
+      </BrowserRouter>
+    </AppProvider>
+  );
 }
