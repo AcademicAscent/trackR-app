@@ -8,9 +8,13 @@ import AchievementsPage from "./components/AchievementsPage.jsx";
 import SettingsPage from "./components/SettingsPage.jsx";
 import GoalFormPage from "./components/GoalFormPage.jsx";
 import GoalsPage from "./pages/GoalsPage.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
 
 // 1) Single source of truth for the child routes
 const appRoutes = [
+  { path: "/login", element: <Login /> },
+  { path: "/signup", element: <Register /> },
   { path: "/dashboard", element: <DashboardPage /> },
   { path: "/achievements", element: <AchievementsPage /> },
   { path: "/goals", element: <GoalsPage /> },                 // list (GET)

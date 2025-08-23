@@ -1,5 +1,35 @@
-# trackR-app
+# Academic Ascent
 
+# About
+For our project, we were tasked with using an AI to help us develop our goal tracking application. Through this, we decide to create a web application called Academic Ascent!
+
+Academic Ascent is a gamified goal-tracking web application designed for students and life-long learners. It's built to motivate users to stay on track with their studies and personal development goals by rewarding them with a unique achievement system.
+
+# Team & Roles
+- [Niko](https://github.com/NikoLewis) - Team Lead and Backend(Data Engineer)
+- [Elijah](https://github.com/InfamousEli02) - Backend(Progress & Achievements Schema), Frontend(Login & Registration)
+- [P](https://github.com/pauriany) - Frontend Dashboard Developer
+- [Yasy](https://github.com/Yasjen7) - Gamification & Progress Developer
+
+# Application Setup
+## Prerequisites
+Before you begin, make sure you have installed:
+- Git
+- Node.js & npm
+
+## Cloning Repo
+- Open your terminal or command prompt.
+- Navigate to the directory where you want to store the project using the cd command.
+- Run the following command, replacing "<repository-url>" with the actual URL of the Git repository: `git clone <repository-url>`
+- Change into your new directory: `cd <project-directory-name`
+
+From here, you would want to either cd into your frontend or backend, and then set up those(You can check their respective READMEs in their folders for further instructions)
+
+
+# Goal Tracker Backend
+Our backend was built using a Node.js server with Express.js. It connects to Supabase using our Prisma schema, and allows us to use Supabase for user authentication as well as a database.
+
+For more information, check the README.md in the backend folder
 # Goal Tracker Frontend
 ## Gamification
 *Our goal tracking application features a comprehensive achievement system designed to motivate and reward user progress. Users can earn various badges by completing specific milestones and maintaining consistent study habits.*
