@@ -40,26 +40,6 @@ export default function GoalFormPage() {
   const [showAddForm, setShowAddForm] = useState(false)
   const today = new Date().toISOString().split("T")[0]
 
-  useEffect(() => {
-    if (!editing) return;
-    (async () => {
-      try {
-        const data = await apiGetGoal(id);
-        setForm({
-          title: data?.title ?? "",
-          description: data?.description ?? "",
-          category: data?.category ?? "",
-          startDate: data?.startDate?.slice(0, 10) ?? "",
-          endDate: data?.endDate?.slice(0, 10) ?? "",
-          targetValue: data?.targetValue ?? "",
-          unit: data?.unit ?? "",
-        });
-      } catch (e) {
-        setErr(e.message || "Failed to load goal");
-      }
-    })();
-  }, [editing, id]);
-
   function update(k, v) {
     setForm((prev) => ({ ...prev, [k]: v }));
   }

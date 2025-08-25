@@ -161,11 +161,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-<<<<<<< Updated upstream
-      "value": "/Users/pauriany/TKH/trackR-app-p/backend/src/generated/prisma",
-=======
-      "value": "C:\\Users\\ejree\\Documents\\Course Exercises\\trackR-app\\backend\\src\\generated\\prisma",
->>>>>>> Stashed changes
+      "value": "C:\\Users\\Cohort_2025\\Achievement\\backend\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -174,25 +170,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-<<<<<<< Updated upstream
-        "value": "darwin",
-=======
         "value": "windows",
->>>>>>> Stashed changes
         "native": true
       }
     ],
     "previewFeatures": [],
-<<<<<<< Updated upstream
-    "sourceFilePath": "/Users/pauriany/TKH/trackR-app-p/backend/prisma/schema.prisma",
-=======
-    "sourceFilePath": "C:\\Users\\ejree\\Documents\\Course Exercises\\trackR-app\\backend\\prisma\\schema.prisma",
->>>>>>> Stashed changes
+    "sourceFilePath": "C:\\Users\\Cohort_2025\\Achievement\\backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "5.22.0",
