@@ -1,13 +1,13 @@
-// src/App.jsx
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AppProvider } from "./state/AppState.jsx";
-import SidebarLayout from "./components/SidebarLayout.jsx";
-import Sidebar from "./components/Sidebar.jsx"; // used by AppYasy
-import DashboardPage from "./components/DashboardPage.jsx";
-import AchievementsPage from "./components/AchievementsPage.jsx";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import { AppProvider } from "./state/AppState.jsx"
+import SidebarLayout from "./components/SidebarLayout.jsx"
+import DashboardPage from "./components/DashboardPage.jsx"
+import AchievementsPage from "./pages/AchievementsPage.jsx"
+<<<<<<< HEAD
 import SettingsPage from "./components/SettingsPage.jsx";
-import GoalFormPage from "./components/GoalFormPage.jsx";
-import GoalsPage from "./pages/GoalsPage.jsx";
+=======
+>>>>>>> 40020147c2d85220b24b58a55ccfc0966bd412ea
+import GoalFormPage from "./components/GoalFormPage.jsx"
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 
@@ -17,7 +17,6 @@ const appRoutes = [
   { path: "/signup", element: <Register /> },
   { path: "/dashboard", element: <DashboardPage /> },
   { path: "/achievements", element: <AchievementsPage /> },
-  { path: "/goals", element: <GoalsPage /> },                 // list (GET)
   { path: "/goals/new", element: <GoalFormPage /> },          // create (POST)
   { path: "/goals/:id/edit", element: <GoalFormPage /> },     // edit (PUT)
   { path: "/settings", element: <SettingsPage /> },
@@ -41,6 +40,7 @@ export default function App() {
     </AppProvider>
   );
 }
+<<<<<<< HEAD
 
 // 3) Teammate's layout preserved as a named export (compiles, not used by default)
 export function AppYasy() {
@@ -64,3 +64,5 @@ export function AppYasy() {
     </AppProvider>
   );
 }
+=======
+>>>>>>> 40020147c2d85220b24b58a55ccfc0966bd412ea

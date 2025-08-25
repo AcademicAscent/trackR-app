@@ -1,28 +1,29 @@
 import React from 'react';
+import { useApp } from "../state/AppState.jsx"
 
 function AchievementsPage() {
   const badges = [
     { 
       id: '1', 
       name: 'First Goal Complete',
-      design: '🐜🍪',
+      design: 'src/images/ant-cookie.png', 
       earned: true,
       earnedDate: '2025-08-10'
     },
     { 
       id: '2', 
       name: 'Study Master',
-      design: '🐜💎',
+      design: 'src/images/ant-gem.png', 
       earned: true,
       earnedDate: '2025-08-09'
     },
     {
       id: '3',
       name: 'Daily Dynamo',
-      design: '🐜🥧',
+      design: 'src/images/ant-pie.png', 
       earned: false,
       description: '3-day study streak',
-      progress: 66
+      progress: 50
     }
   ];
 
@@ -35,11 +36,32 @@ function AchievementsPage() {
 
   const earnedCount = badges.filter(badge => badge.earned).length;
 
+  // Helper function to render badge design (emoji or image)
+  const renderBadgeDesign = (design, earned) => {
+    const isImage = design.includes('.png') || design.includes('.jpg') || design.includes('.gif') || design.includes('.svg');
+    
+    if (isImage) {
+      return (
+        <img 
+          src={design} 
+          alt="Badge" 
+          className={`w-28 h-38 mx-auto mb-3 ${!earned ? 'grayscale opacity-50' : ''}`}
+        />
+      );
+    } else {
+      return (
+        <div className={`text-6xl mb-3 ${!earned ? 'grayscale opacity-50' : ''}`}>
+          {design}
+        </div>
+      );
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-8">
       {/* Header */}
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold text-red-800 mb-4">Your Achievements 🏆</h1>
+        <h1 className="text-3xl font-extrabold mb-1">Achievements 🏆</h1>
         <p className="text-lg text-gray-700">
           You've earned <span className="font-semibold text-red-600">{earnedCount}</span> out of {badges.length} total badges
         </p>
@@ -53,9 +75,7 @@ function AchievementsPage() {
             <div key={badge.id} className={`rounded-xl shadow-lg p-6 text-center w-64 flex-shrink-0 ${
               badge.earned ? 'bg-white border-2 border-red-200' : 'bg-red-50 border-2 border-red-100'
             }`}>
-              <div className={`text-6xl mb-3 ${!badge.earned ? 'grayscale opacity-50' : ''}`}>
-                {badge.design}
-              </div>
+              {renderBadgeDesign(badge.design, badge.earned)}
               <p className={`text-lg font-bold ${badge.earned ? 'text-red-800' : 'text-red-600'}`}>
                 {badge.name}
               </p>
@@ -94,3 +114,8 @@ function AchievementsPage() {
 }
 
 export default AchievementsPage;
+
+
+
+
+
