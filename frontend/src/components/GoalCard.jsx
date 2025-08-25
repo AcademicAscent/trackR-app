@@ -11,6 +11,12 @@ function clampPct(v) {
 }
 
 
+function clampPct(v) {
+    const n = Number(v) || 0
+    return Math.max(0, Math.min(100, Math.round(n)))
+}
+
+
 export default function GoalCard({ id, title, description, progress = 0, status = "high", editable = false }) {
     const { updateGoalProgress } = useApp()
     const pct = clampPct(progress)
@@ -72,6 +78,7 @@ export default function GoalCard({ id, title, description, progress = 0, status 
                     )}
                 </div>
             </div>
+<<<<<<< HEAD
             <StatusPill variant={status} />
           </div>
 
@@ -104,3 +111,8 @@ export default function GoalCard({ id, title, description, progress = 0, status 
 
             )
 }
+=======
+        </div>
+    )
+}
+>>>>>>> 40020147c2d85220b24b58a55ccfc0966bd412ea

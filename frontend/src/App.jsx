@@ -3,7 +3,10 @@ import { AppProvider } from "./state/AppState.jsx"
 import SidebarLayout from "./components/SidebarLayout.jsx"
 import DashboardPage from "./components/DashboardPage.jsx"
 import AchievementsPage from "./pages/AchievementsPage.jsx"
+<<<<<<< HEAD
 import SettingsPage from "./components/SettingsPage.jsx";
+=======
+>>>>>>> 40020147c2d85220b24b58a55ccfc0966bd412ea
 import GoalFormPage from "./components/GoalFormPage.jsx"
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
@@ -37,6 +40,7 @@ export default function App() {
     </AppProvider>
   );
 }
+<<<<<<< HEAD
 
 // 3) Teammate's layout preserved as a named export (compiles, not used by default)
 export function AppYasy() {
@@ -60,3 +64,5 @@ export function AppYasy() {
     </AppProvider>
   );
 }
+=======
+>>>>>>> 40020147c2d85220b24b58a55ccfc0966bd412ea
