@@ -162,15 +162,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-<<<<<<< HEAD
       "value": "C:\\Users\\Cohort_2025\\Achievement\\backend\\src\\generated\\prisma",
-=======
-<<<<<<< Updated upstream
-      "value": "/Users/pauriany/TKH/trackR-app-p/backend/src/generated/prisma",
-=======
-      "value": "C:\\Users\\ejree\\Documents\\Course Exercises\\trackR-app\\backend\\src\\generated\\prisma",
->>>>>>> Stashed changes
->>>>>>> 40020147c2d85220b24b58a55ccfc0966bd412ea
       "fromEnvVar": null
     },
     "config": {
@@ -179,28 +171,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-<<<<<<< HEAD
         "value": "windows",
-=======
-<<<<<<< Updated upstream
-        "value": "darwin",
-=======
-        "value": "windows",
->>>>>>> Stashed changes
->>>>>>> 40020147c2d85220b24b58a55ccfc0966bd412ea
         "native": true
       }
     ],
     "previewFeatures": [],
-<<<<<<< HEAD
     "sourceFilePath": "C:\\Users\\Cohort_2025\\Achievement\\backend\\prisma\\schema.prisma",
-=======
-<<<<<<< Updated upstream
-    "sourceFilePath": "/Users/pauriany/TKH/trackR-app-p/backend/prisma/schema.prisma",
-=======
-    "sourceFilePath": "C:\\Users\\ejree\\Documents\\Course Exercises\\trackR-app\\backend\\prisma\\schema.prisma",
->>>>>>> Stashed changes
->>>>>>> 40020147c2d85220b24b58a55ccfc0966bd412ea
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -261,18 +237,8 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
-<<<<<<< HEAD
 path.join(__dirname, "query_engine-windows.dll.node");
 path.join(process.cwd(), "src/generated/prisma/query_engine-windows.dll.node")
-=======
-<<<<<<< Updated upstream
-path.join(__dirname, "libquery_engine-darwin.dylib.node");
-path.join(process.cwd(), "src/generated/prisma/libquery_engine-darwin.dylib.node")
-=======
-path.join(__dirname, "query_engine-windows.dll.node");
-path.join(process.cwd(), "src/generated/prisma/query_engine-windows.dll.node")
->>>>>>> Stashed changes
->>>>>>> 40020147c2d85220b24b58a55ccfc0966bd412ea
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "src/generated/prisma/schema.prisma")

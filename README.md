@@ -81,3 +81,4 @@ For more information, check the README.md in the backend folder
 * Push personal limits with extended study sessions
 * Experience the satisfaction of completing meaningful goals
 * Build momentum through visual progress tracking and recognition
+

@@ -38,6 +38,8 @@ export default function GoalFormPage() {
   })
   const [dateError, setDateError] = useState("")
   const [showAddForm, setShowAddForm] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [err, setErr] = useState("")
   const today = new Date().toISOString().split("T")[0]
 
   function update(k, v) {
